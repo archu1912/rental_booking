@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+{% load static %}
+{% block body_block %}
+
+  <div class="container">
+    <div class="jumbotron">
+        <h4><b>Update Rental Status</b></h4>
+        <form enctype="multipart/form-data" method="POST" action="{% url 'booking:edit_booking' booking.id %}">
+          {% csrf_token %}
+          <div class="col-md-12">
+            
+            <div class="form-group">
+          <label for="customer">Customer Name: </label>
+            {{ booking.customer.first_name|capfirst }} {{ booking.customer.last_name|capfirst }}
+            </div>
+        </div>
+          
+            <div class="col-md-12">
+                <div class="form-group">
+          <label for="vehicle">Vehicle Name: </label>
+          {{booking.vehicle.name}} 
+        </div>
+        </div>
+
+            <div class="col-md-12">
+            
+                <div class="form-group">
+            <label for="model">Vehicle Model: </label>
+            {{booking.vehicle.model_no}} 
+              </div>
+            </div>
+
+              <div class="col-md-12">
+            
+                <div class="form-group">
+                  <label for="inputStatus">Rental Status</label>
+                  <select id="status" name="status" class="form-control-sm custom-select" required>
+                    <option selected disabled>Choose a rental status</option>
+                    {% for val in status%}
+                    <option value="{{val.key}}">{{val.value}}</option>
+                    
+                    {% endfor %}
+                  </select>
+              </div>
+            </div>
+
+          <input type="submit" name="" value="Save">
+          <a href="{% url 'booking:list_booking' %}"><input type="button" value="Cancel" /></a>
+        </form>
+        
+    </div>
+  </div>
+
+  
+{% endblock %}
+

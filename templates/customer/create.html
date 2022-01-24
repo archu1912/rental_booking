@@ -1,0 +1,70 @@
+{% extends "index.html" %}
+{% load static %}
+{% block body_block %}
+
+  <div class="container">
+    {% if messages %}
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">
+        ×
+        </button>
+        <strong>{{message}}<strong>
+      </div>
+  {% endfor %}
+  {% endif %}
+    <div class="jumbotron">
+        <h4><b>Create Customer</b></h4>
+        <form enctype="multipart/form-data" method="POST">          
+          {% csrf_token %}
+          <div class="col-md-12">
+            <div class="form-group">
+          <label for="first_name">First name: </label>
+          <input id="first_name" type="text" name="first_name" pattern="[a-zA-Z]+" value="{{ first_name |default_if_none:"" }}" maxlength="250" required> 
+          <span>Use upto 250 characters</span>  
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+          <label for="last_name">Last name: </label>
+          <input id="last_name" type="text" name="last_name" pattern="[a-zA-Z]+" value="{{ last_name |default_if_none:"" }}" maxlength="250" required> 
+          <span>Use upto 250 characters</span>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+          <label for="mobile_no">Mobile Number: </label>
+          <input id="mobile_no" type="text"  name="mobile_no" value="{{ mobile_no }}" pattern="[789][0-9]{9}" 
+          title="Phone number with 7-9 and remaing 9 digit with 0-9" required>
+          <span>Phone number with 7-9 and remaing 9 digit with 0-9</span>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+          <label for="email">Email: </label>
+          <input id="email" type="email" name="email" value="{{ email }}">
+            </div>
+          </div>
+
+          <input id="created_at" type="hidden" name="created_at" value="">
+
+          <input type="submit" name="" value="Save">
+          <a href="{% url 'customer:list_customer' %}"><input type="button" value="Cancel" /></a>
+        </form>
+        
+    </div>
+
+  </div>
+  <script>
+    var today = new Date().toISOString().
+    replace(/T/, ' ').
+    replace(/\..+/, '');
+    console.log('date time: ', today);
+  document.getElementById("created_at").value = today;
+  </script> 
+  
+{% endblock %}
+

@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% load static %}
+{% block body_block %}
+
+
+  <div class="container">
+    {% if messages %}
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">
+        ×
+        </button>
+        <strong>{{message}}<strong>
+      </div>
+  {% endfor %}
+  {% endif %}
+    <div class="jumbotron">
+        <h4><b>Create Rental Booking</b></h4>
+        <form enctype="multipart/form-data" method="POST">          
+          {% csrf_token %}
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="mobile_no">Existing Customer Mobile Number: </label>
+              <input id="mobile_no" type="text"  name="mobile_no" value="{{ mobile_no }}" pattern="[789][0-9]{9}" 
+              title="Phone number with 7-9 and remaing 9 digit with 0-9" required>
+              <span>Phone number with 7-9 and remaing 9 digit with 0-9</span>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            
+            <div class="form-group">
+              <label for="inputStatus">Vehicle</label>
+              <select id="vehicle" name="vehicle" class="form-control-sm custom-select" required>
+                <option selected disabled>Choose a vehicle</option>
+                {% for val in vehicles%}
+                <option value="{{val.id}}">{{val.name}} | {{val.model_no}}</option>
+                
+                {% endfor %}
+              </select>
+          </div>
+        </div>
+
+          <input id="status" type="hidden" name="status" value="RN">
+
+          <input type="submit" name="" value="Save" id="btn">
+          <a href="{% url 'booking:list_booking' %}"><input type="button" value="Cancel" /></a>
+        </form>
+        
+    </div>
+
+  </div>
+  
+{% endblock %}
+

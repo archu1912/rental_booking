@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+{% load static %}
+{% block body_block %}
+
+
+
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+
+
+
+<div class="container">
+    <table>
+        <tr>
+          <!-- <th>Username</th> -->
+            <th>Vehicle Name</th>
+            <th>Model Number</th>
+            <th>Category</th>
+        </tr>
+
+        
+          
+        {% if noItem == False %}
+        {% for data in dataset %}
+          <tr>
+            
+              
+            <!-- <td>{{ data.username }}</td> -->
+              <td>{{ data.name|capfirst }}</td>
+              <td> {{ data.model_no }}</td>
+              <td>{{ data.categoryName }}</td>
+              
+
+              
+          </tr>
+          {% endfor %} 
+          {% else %}
+              <tr>
+                <td colspan="4">No Data Found</td>
+              </tr>
+              {% endif %}
+          
+        
+          
+</table>
+</div>
+{% endblock %}

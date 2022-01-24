@@ -1,0 +1,66 @@
+{% extends "index.html" %}
+{% load static %}
+{% block body_block %}
+
+
+
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    </style>
+
+
+
+
+<div class="container">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">
+        ×
+        </button>
+        <strong>{{message}}<strong>
+      </div>
+  {% endfor %}
+  {% endif %}
+
+    <table>
+        <tr>
+            <th>Vehicle Name</th>
+            <th>Model Number</th>
+            <th>Inventory Quantity</th>
+            <th>Buffer Quantity</th>
+            <th>Damage Quantity</th>
+        </tr>
+          
+        {% if noItem == False %}
+        {% for data in dataset %}
+          <tr>
+              <td> {{ data.vehicle.name }}</td>
+              <td> {{ data.vehicle.model_no }}</td>
+              <td>{{ data.inventory_qty }}</td>
+              <td>{{ data.buffer_qty }}</td>
+              <td>{{ data.damage_qty }}</td>
+          </tr>
+          {% endfor %} 
+          {% else %}
+              <tr>
+                <td colspan="4">No Data Found</td>
+              </tr>
+              {% endif %}
+</table>
+</div>
+{% endblock %}
